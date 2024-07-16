@@ -13,6 +13,7 @@ public class JogoDaVelha {
                 velha[i][j] = new Campo();
             }
         }
+        iniciarJogo(velha);
         
         while (game) {                        
             desenhaJogo(velha);
@@ -43,6 +44,7 @@ public class JogoDaVelha {
         System.out.printf("1   %c | %c | %c %n", velha[1][0].getSimbolo(), velha[1][1].getSimbolo(), velha[1][2].getSimbolo());
         System.out.println("   -----------");
         System.out.printf("2   %c | %c | %c %n", velha[2][0].getSimbolo(), velha[2][1].getSimbolo(), velha[2][2].getSimbolo());
+        System.out.println();
     }
 
     public static void limparTela(){
@@ -70,7 +72,49 @@ public class JogoDaVelha {
         }
     }
 
+    public static void iniciarJogo(Campo[][] velha){
+        for (int i = 0; i < velha.length; i++) {
+            for (int j = 0; j < velha.length; j++) {
+                velha[i][j] = new Campo();
+            }
+        }
+    }
+
     public static String verificaVitoria(Campo[][] velha){
+        //verifica linhas ← →
+        for (int i = 0; i < velha.length; i++) {
+            if (velha[i][0].getSimbolo() != ' ' &&
+                velha[i][0].getSimbolo() == velha[i][1].getSimbolo() &&
+                velha[i][1].getSimbolo() == velha[i][2].getSimbolo()) {
+                return String.valueOf(velha[i][0].getSimbolo());
+            }    
+        }
+        //verifica colunas ↓↑
+        for (int i = 0; i < velha.length; i++) {
+            if (velha[0][i].getSimbolo() != ' ' &&
+                velha[0][i].getSimbolo() == velha[1][i].getSimbolo() &&
+                velha[1][i].getSimbolo() == velha[2][i].getSimbolo()) {
+                return String.valueOf(velha[0][i].getSimbolo()); 
+            }    
+        }
+
+        //diagonais ↙
+        for (int i = 0; i < velha.length; i++) {
+            if (velha[0][2].getSimbolo() != ' ' &&
+                velha[0][2].getSimbolo() == velha[1][1].getSimbolo() &&
+                velha[1][1].getSimbolo() == velha[2][0].getSimbolo()) {
+                return String.valueOf(velha[0][2].getSimbolo());
+            }    
+        }
+        //diagonais ↗
+        for (int i = 0; i < velha.length; i++) {
+            if (velha[0][0].getSimbolo() != ' ' &&
+                velha[0][0].getSimbolo() == velha[1][1].getSimbolo() &&
+                velha[1][1].getSimbolo() == velha[2][2].getSimbolo()) {
+                return String.valueOf(velha[0][0].getSimbolo());
+            }    
+        }
         return "";
+        
     } 
 }
